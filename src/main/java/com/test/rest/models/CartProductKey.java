@@ -18,9 +18,6 @@ public class CartProductKey implements Serializable{
 	@Column(name="product", insertable=false, updatable=false)
 	private Integer product;
 
-	@Column(insertable=false, updatable=false)
-	private Integer internal;
-
 	public CartProductKey() {
 	}
 
@@ -38,14 +35,6 @@ public class CartProductKey implements Serializable{
 
 	public void setProduct(Integer product) {
 		this.product = product;
-	}
-
-	public Integer getInternal() {
-		return internal;
-	}
-
-	public void setInternal(Integer internal) {
-		this.internal = internal;
 	}
 
 	public boolean equals(Object other) {

@@ -1,5 +1,6 @@
 package com.test.rest.models;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -11,7 +12,7 @@ import javax.persistence.OneToOne;
 public class Cart extends SuperModel{
 	
     @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL,  orphanRemoval = true)
-	private List<CartProduct> cartProducts;
+	private List<CartProduct> cartProducts = new ArrayList<CartProduct>();
     
     @OneToOne(mappedBy="cart")
     private User user;

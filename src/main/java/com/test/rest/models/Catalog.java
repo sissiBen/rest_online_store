@@ -5,11 +5,14 @@ import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Catalog extends SuperModel{
 	
 	private String designation;
 	
+	@JsonIgnore
 	@OneToMany(mappedBy = "catalog")
 	private List<Product> products;
 

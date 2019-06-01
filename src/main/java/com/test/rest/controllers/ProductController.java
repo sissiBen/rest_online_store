@@ -25,7 +25,7 @@ public class ProductController {
 	
 	
 	//web service qui affiche les produits d'un catalogue 
-	@RequestMapping(value = "/productsbycatalog/{catalog}", method = RequestMethod.GET, produces = "application/json")
+	@RequestMapping(value = "/productsbycatalog/{catalogId}", method = RequestMethod.GET, produces = "application/json")
 	public List<Product> getProductsByCatalogId(@PathVariable Integer catalogId ) {
 		
 		return productService.getProductsByCatalogId(catalogId);
@@ -33,13 +33,20 @@ public class ProductController {
 	}
 	
 	//web service qui affiche le détails d'un seul produit
-	@RequestMapping(value = "/productsbyid/{product}", method = RequestMethod.GET, produces = "application/json")
+	@RequestMapping(value = "/productsbyid/{productId}", method = RequestMethod.GET, produces = "application/json")
 	public Product getProductById(@PathVariable Integer productId ) {
 			
 		return productService.getById(productId);
 
 	}
 		
+	//web service qui affiche Tous les produits
+		@RequestMapping(value = "/products", method = RequestMethod.GET, produces = "application/json")
+		public List<Product> getAllProducts() {
+			
+			return (List<Product>) productService.listAll();
+
+		}
 	
 
 }

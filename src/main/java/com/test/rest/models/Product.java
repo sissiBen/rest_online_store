@@ -7,24 +7,40 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Product extends SuperModel{
 	
 	
 	private String designation;
 	
-	private String Description;
+	private String description;
 	
 	private double price;
 	
 	private String imageUrl;
 	
-	
-	@OneToMany(mappedBy = "product")
+	@JsonIgnore
+	@OneToMany(mappedBy = "product" )
 	List<CartProduct> cartProducts;
 	
 	@ManyToOne
 	private Catalog catalog;
+	
+	public Product(){
+		
+	}
+	public Product(String designation, String description, double price, String imageUrl){
+		this.designation = designation;
+		
+		this.description = description;
+		
+		this.price = price;
+		
+		this.imageUrl = imageUrl;
+//		
+	}
 	
 	public String getDesignation() {
 		return designation;
@@ -33,10 +49,10 @@ public class Product extends SuperModel{
 		this.designation = designation;
 	}
 	public String getDescription() {
-		return Description;
+		return description;
 	}
 	public void setDescription(String description) {
-		Description = description;
+		this.description = description;
 	}
 	public double getPrice() {
 		return price;
