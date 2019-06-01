@@ -35,7 +35,9 @@ public class CartProduct {
 	}
 
 	public void setCart(Cart cart) {
-		id.setCart(cart.getId());
+		if(cart!=null){
+			id.setCart(cart.getId());
+		}
 		this.cart = cart;
 	}
 
@@ -44,8 +46,9 @@ public class CartProduct {
 	}
 
 	public void setProduct(Product product) {
-		
-		id.setProduct(product.getId());
+		if(product!=null){
+			id.setProduct(product.getId());
+		}
 		
 		this.product = product;
 	}
