@@ -1,10 +1,12 @@
 package com.test.rest.services.implementation;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.test.rest.models.Cart;
 import com.test.rest.models.Catalog;
 import com.test.rest.repositories.CatalogRepository;
 import com.test.rest.services.CatalogService;
@@ -26,7 +28,11 @@ public class CatalogServiceImpl implements CatalogService {
 
 	@Override
 	public Catalog getById(Integer id) {
-		return catalogRepository.getOne(id);
+		Optional<Catalog> optional = catalogRepository.findById(id);
+		if(optional!=null){
+			return optional.get();
+		}
+		return null;
 	}
 
 	@Override

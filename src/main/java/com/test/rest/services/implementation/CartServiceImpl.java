@@ -1,6 +1,7 @@
 package com.test.rest.services.implementation;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -40,7 +41,12 @@ public class CartServiceImpl implements CartService{
 
 	@Override
 	public Cart getById(Integer id) {
-		return cartRepository.getOne(id);
+		
+		Optional<Cart> optional = cartRepository.findById(id);
+		if(optional!=null){
+			return optional.get();
+		}
+		return null;
 	}
 
 	@Override

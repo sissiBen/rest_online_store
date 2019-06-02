@@ -1,6 +1,7 @@
 package com.test.rest.services.implementation;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,7 +29,11 @@ public class ProductServiceImpl implements ProductService{
 	@Override
 	public Product getById(Integer id) {
 		
-		return productRepository.getOne(id);
+		Optional<Product> optional = productRepository.findById(id);
+		if(optional!=null){
+			return optional.get();
+		}
+		return null;
 	}
 
 	@Override

@@ -27,6 +27,7 @@ public class CartController {
 		this.cartService = cartService;
 	}
 	
+	//web service qui ajoute un produit au panier
 	@RequestMapping(value = "/addproduct", method = RequestMethod.POST, produces = "application/json")
 	public ResponseEntity addProductToCart(@RequestBody Cart cart, @RequestBody Product product,@RequestBody Integer quantity) {
 		
@@ -38,7 +39,7 @@ public class CartController {
 		cart = cartService.saveOrUpdate(cart);
 		return new ResponseEntity(cart, HttpStatus.OK);
 	}
-	
+	//web service qui enleve un produit du panier
 	@RequestMapping(value = "/removeproduct", method = RequestMethod.POST, produces = "application/json")
 	public ResponseEntity removeProductFromCart(@RequestBody CartProduct cartProduct) {
 		Cart cart = cartProduct.getCart();
@@ -48,7 +49,7 @@ public class CartController {
 	}
 	
 	//web service qui affiche le contenu d'un panier 
-		@RequestMapping(value = "/cartdetails/{cart}", method = RequestMethod.GET, produces = "application/json")
+		@RequestMapping(value = "/cartdetails/{cartId}", method = RequestMethod.GET, produces = "application/json")
 		public List<CartProduct> getCartProductsByCartId(@PathVariable Integer cartId ) {
 			
 			return cartService.getCartProductsByCartId(cartId);

@@ -17,13 +17,12 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.test.rest.config.TestConfig;
+import com.test.rest.models.Catalog;
 import com.test.rest.models.Product;
 import com.test.rest.populates.StartPopulate;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = TestConfig.class)
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 @SpringBootTest
 public class ProductServiceTest {
@@ -31,12 +30,21 @@ public class ProductServiceTest {
 	private StartPopulate startPopulate;
 
     private ProductService productService;
+    
+    private CatalogService catalogService;
+    
     private static Product savedProduct;
+    
 
     @Autowired
     public void setProductService(ProductService productService) {
         this.productService = productService;
     }
+    
+    @Autowired
+    public void setCatalogService(CatalogService catalogService) {
+		this.catalogService = catalogService;
+	}
 
 
     @Test
@@ -71,6 +79,8 @@ public class ProductServiceTest {
         
         //vérifier que la description est bien changée
         assert  savedProduct2.getDescription().equals("Junit Product Updated");
+        
+        
 
     }
   @Test
@@ -80,6 +90,33 @@ public class ProductServiceTest {
       
       //vérifier qu'on a un seul produit
       assertEquals(list.size(), 1);  
+  }
+  @Test
+  public void c_getProductsByCatalogIdTest() {
+	//Creer un catalogue sans lui affecter de produits
+      Catalog catalog = new Catalog();
+ 	  catalog= catalogService.saveOrUpdate(catalog);
+ 	  
+ 	  //lister les produits par ce catalogue
+ 	 List<Product> list = (List<Product>) productService.getProductsByCatalogId(catalog.getId());
+     
+     //vérifier qu'on a une liste vide
+     assertTrue(list.isEmpty());  
+     
+     //affecter un produit au catalogue
+ 	  savedProduct.setCatalog(catalog);
+ 	  savedProduct= productService.saveOrUpdate(savedProduct);
+ 	  
+ 	  assertNotNull(savedProduct.getCatalog());
+ 	  assertNotNull(savedProduct.getCatalog().getId());
+ 	  assertEquals(catalog.getId(), savedProduct.getCatalog().getId());
+ 	  
+	  //recuperer la liste des produits
+ 	  list = (List<Product>) productService.getProductsByCatalogId(catalog.getId());
+     
+     //vérifier que la liste contient un produit
+ 	 assertEquals(list.size(), 1);   
+      
   }
     
 
@@ -97,4 +134,5 @@ public class ProductServiceTest {
 
     }
 
+	
 }
